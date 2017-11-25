@@ -4,8 +4,10 @@ This exercise will help you to understand how you can interact with the DOM API 
 - Create a simple gallery where:
   - The user can navigate between the images using:
     - Arrows in the UI
-    - Keyboard arrows
+    - Dot indicators in the UI (optional)
+    - Keyboard arrows (optional)
   - Images appear and disappear using `opacity` and `transition`
+  - Disable arrows when there are no more images.
 - Create a page that dynamically put contents in it from an external source as JSON or AJAX call.
   - The menu should be dynamically populated with categories of cards
   - Clicking in a menu item should filter items in the grid

@@ -18,3 +18,6 @@ Both exercises should support at least a small, medium and large viewports.
 - Small: 0 - 639px
 - Medium: 640px - 1023px
 - Large: 1024 - ∞
+
+## IMPORTANT
+SASS support is NOT optional.

@@ -20,4 +20,4 @@ Both exercises should support at least a small, medium and large viewports.
 - Large: 1024 - ∞
 
 ## IMPORTANT
-SASS support is NOT optional.
+SASS support and BEM syntax are NOT optional.

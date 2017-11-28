@@ -8,7 +8,7 @@ This exercise will help you to understand how you can interact with the DOM API 
     - Keyboard arrows (optional)
   - Images appear and disappear using `opacity` and `transition`
   - Disable arrows when there are no more images.
-- Create a page that dynamically put contents in it from an external source as JSON or AJAX call.
+- Create a page that dynamically put contents in it from an object in the JS, an external source as JSON or AJAX call.
   - The menu should be dynamically populated with categories of cards
   - Clicking in a menu item should filter items in the grid
   - A collection of cards should be dynamically populated inside a grid

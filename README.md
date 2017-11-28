@@ -17,4 +17,4 @@ This exercise will help you to understand how you can interact with the DOM API 
 Both exercises should support at least a small, medium and large viewports.
 - Small: 0 - 639px
 - Medium: 640px - 1023px
-- Large: 1014 - ∞
+- Large: 1024 - ∞

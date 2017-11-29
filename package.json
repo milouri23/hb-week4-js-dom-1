@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "serve": "http-server -c-1",
-    "build": "npm-run-all lint:** build:css",
+    "build": "npm-run-all clean lint:** --parallel build:css copy:**",
     "build:css": "node-sass src/index.scss public/style.css --output-style compressed",
     "lint": "npm-run-all lint:**",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
@@ -16,6 +16,8 @@
     "copy:html": "copy 'src/**/*.html' public",
     "copy:js": "copy 'src/**/*.js' public",
     "precommit": "npm run lint",
+    "clean": "rm -rf public/",
+    "start:build": "npm-run-all build serve",
     "start": "npm-run-all copy:** build:css --parallel watch:** serve"
   },
   "repository": {

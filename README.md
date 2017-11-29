@@ -24,6 +24,6 @@ Both exercises should support at least a small, medium and large viewports.
 SASS support and BEM syntax are NOT optional.
 
 ## How to run this example
-Use `npm start` to serve the application in a development environment.
-Use `npm run build` to create a distributable version of the app.
-Use `npm run lint` to run the SASS and JS linters.
+- Use `npm start` to serve the application in a development environment.
+- Use `npm run build` to create a distributable version of the app.
+- Use `npm run lint` to run the SASS and JS linters.

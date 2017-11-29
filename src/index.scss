@@ -1,0 +1,9 @@
+@import 'node_modules/reset-css/_reset';
+
+@import 'shared/variables';
+@import 'shared/utils';
+@import 'shared/base';
+@import 'shared/landing';
+
+@import 'gallery/gallery';
+@import 'movies/movies';

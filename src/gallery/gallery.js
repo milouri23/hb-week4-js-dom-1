@@ -79,6 +79,7 @@ export class Gallery {
     this.elements.rightBtn.addEventListener('click', this.goNext.bind(this))
     this.elements.leftBtn.addEventListener('click', this.goPrevious.bind(this))
     this.elements.dotsContainer.addEventListener('click', this.dotHandler.bind(this))
+    this.node.addEventListener('keydown', this.keydownHandler.bind(this))
   }
 
   changeGalleryIndex (index) {
@@ -88,6 +89,7 @@ export class Gallery {
       this.index = index
       this.elements.galleryItems[this.index].classList.add(Gallery.states.imageSelected)
       this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
+      this.elements.dots[this.index].focus()
     }
   }
 
@@ -103,6 +105,14 @@ export class Gallery {
     const clickedElement = event.target
     if (clickedElement.classList.contains('gallery__dot-button')) {
       this.changeGalleryIndex(Number(clickedElement.dataset.index))
+    }
+  }
+
+  keydownHandler ({key}) {
+    if (key === 'ArrowLeft') {
+      this.goPrevious()
+    } else if (key === 'ArrowRight') {
+      this.goNext()
     }
   }
 }

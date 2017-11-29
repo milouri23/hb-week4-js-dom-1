@@ -50,6 +50,7 @@ export class Gallery {
 
   setShell () {
     this.node.innerHTML = Gallery.templates.shell
+    this.node.tabIndex = 0
   }
 
   setDomReferences () {

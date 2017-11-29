@@ -6,13 +6,15 @@ export class Gallery {
 
     this.setShell()
     this.setDomReferences()
+    this.setDots(data)
     this.setImages(data)
     this.setEvents()
   }
 
   static get states () {
     return {
-      selected: 'gallery__image-container--selected'
+      imageSelected: 'gallery__image-container--selected',
+      dotSelected: 'gallery__dot-button--selected'
     }
   }
 
@@ -22,15 +24,21 @@ export class Gallery {
         `<div class="gallery__controls">
           <button class="gallery__arrow gallery__arrow--left"></button>
           <button class="gallery__arrow gallery__arrow--right"></button>
+          <ul class="gallery__dots-container"></ul>
         </div>
         <ul class="gallery__images-container"></ul>`
+      ),
+      dot: (
+        `<li class="gallery__dot">
+          <button class="gallery__dot-button" data-index="{index}"></button>
+        </li>`
       )
     }
   }
 
   static toGalleryItemHTML ({url}, index) {
     const selectedClass = index === 0
-      ? Gallery.states.selected
+      ? Gallery.states.imageSelected
       : ''
 
     return (
@@ -48,6 +56,17 @@ export class Gallery {
     this.elements.imagesContainer = this.node.querySelector('.gallery__images-container')
     this.elements.leftBtn = this.node.querySelector('.gallery__arrow--left')
     this.elements.rightBtn = this.node.querySelector('.gallery__arrow--right')
+    this.elements.dotsContainer = this.node.querySelector('.gallery__dots-container')
+  }
+
+  setDots (data) {
+    const dotsHTML = Array.from(
+      Array(data.length),
+      (_, index) => Gallery.templates.dot.replace('{index}', index)
+    ).join('')
+    this.elements.dotsContainer.innerHTML = dotsHTML
+    this.elements.dots = this.elements.dotsContainer.querySelectorAll('.gallery__dot-button')
+    this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
   }
 
   setImages (data) {
@@ -59,13 +78,16 @@ export class Gallery {
   setEvents () {
     this.elements.rightBtn.addEventListener('click', this.goNext.bind(this))
     this.elements.leftBtn.addEventListener('click', this.goPrevious.bind(this))
+    this.elements.dotsContainer.addEventListener('click', this.dotHandler.bind(this))
   }
 
   changeGalleryIndex (index) {
-    if (index >= 0 && index < this.elements.galleryItems.length) {
-      this.elements.galleryItems[this.index].classList.remove(Gallery.states.selected)
+    if (index >= 0 && index < this.elements.galleryItems.length && index !== this.index) {
+      this.elements.galleryItems[this.index].classList.remove(Gallery.states.imageSelected)
+      this.elements.dots[this.index].classList.remove(Gallery.states.dotSelected)
       this.index = index
-      this.elements.galleryItems[this.index].classList.add(Gallery.states.selected)
+      this.elements.galleryItems[this.index].classList.add(Gallery.states.imageSelected)
+      this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
     }
   }
 
@@ -75,5 +97,12 @@ export class Gallery {
 
   goPrevious () {
     this.changeGalleryIndex(this.index - 1)
+  }
+
+  dotHandler (event) {
+    const clickedElement = event.target
+    if (clickedElement.classList.contains('gallery__dot-button')) {
+      this.changeGalleryIndex(Number(clickedElement.dataset.index))
+    }
   }
 }

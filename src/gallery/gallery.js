@@ -15,7 +15,8 @@ export class Gallery {
   static get states () {
     return {
       imageSelected: 'gallery__image-container--selected',
-      dotSelected: 'gallery__dot-button--selected'
+      dotSelected: 'gallery__dot-button--selected',
+      arrowDisabled: 'gallery__arrow--disabled'
     }
   }
 
@@ -85,7 +86,11 @@ export class Gallery {
   }
 
   changeGalleryIndex (index) {
-    if (index >= 0 && index < this.elements.galleryItems.length && index !== this.index) {
+    const isPositive = index >= 0
+    const isLessThanLength = index < this.elements.galleryItems.length
+    const isDifferentThanCurrent = index !== this.index
+
+    if (isPositive && isLessThanLength && isDifferentThanCurrent) {
       this.elements.galleryItems[this.index].classList.remove(Gallery.states.imageSelected)
       this.elements.dots[this.index].classList.remove(Gallery.states.dotSelected)
       this.index = index
@@ -97,13 +102,17 @@ export class Gallery {
   }
 
   updateArrowsState () {
-    this.elements.leftBtn.classList.remove('gallery__arrow--disabled')
-    this.elements.rightBtn.classList.remove('gallery__arrow--disabled')
-    if (this.index === 0) {
-      this.elements.leftBtn.classList.add('gallery__arrow--disabled')
+    const isFirst = this.index === 0
+    const isLast = this.index === this.elements.galleryItems.length - 1
+
+    this.elements.leftBtn.classList.remove(Gallery.states.arrowDisabled)
+    this.elements.rightBtn.classList.remove(Gallery.states.arrowDisabled)
+
+    if (isFirst) {
+      this.elements.leftBtn.classList.add(Gallery.states.arrowDisabled)
     }
-    if (this.index === this.elements.galleryItems.length - 1) {
-      this.elements.rightBtn.classList.add('gallery__arrow--disabled')
+    if (isLast) {
+      this.elements.rightBtn.classList.add(Gallery.states.arrowDisabled)
     }
   }
 
@@ -123,10 +132,13 @@ export class Gallery {
   }
 
   keydownHandler ({key}) {
-    if (key === 'ArrowLeft') {
-      this.goPrevious()
-    } else if (key === 'ArrowRight') {
-      this.goNext()
+    switch (key) {
+      case 'ArrowLeft':
+        this.goPrevious()
+        break
+      case 'ArrowRight':
+        this.goNext()
+        break
     }
   }
 }

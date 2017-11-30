@@ -8,6 +8,7 @@ export class Gallery {
     this.setDomReferences()
     this.setDots(data)
     this.setImages(data)
+    this.updateArrowsState()
     this.setEvents()
   }
 
@@ -91,6 +92,18 @@ export class Gallery {
       this.elements.galleryItems[this.index].classList.add(Gallery.states.imageSelected)
       this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
       this.elements.dots[this.index].focus()
+      this.updateArrowsState()
+    }
+  }
+
+  updateArrowsState () {
+    this.elements.leftBtn.classList.remove('gallery__arrow--disabled')
+    this.elements.rightBtn.classList.remove('gallery__arrow--disabled')
+    if (this.index === 0) {
+      this.elements.leftBtn.classList.add('gallery__arrow--disabled')
+    }
+    if (this.index === this.elements.galleryItems.length - 1) {
+      this.elements.rightBtn.classList.add('gallery__arrow--disabled')
     }
   }
 

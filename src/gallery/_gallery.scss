@@ -54,6 +54,11 @@
 		&--right {
 			right: 0;
 		}
+
+		&--disabled {
+			pointer-events: none;
+			background-color: gray;
+		}
 	}
 
 	&__images-container {

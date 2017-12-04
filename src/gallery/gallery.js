@@ -63,17 +63,18 @@ export class Gallery {
   }
 
   setDots (data) {
-    const dotsHTML = Array.from(
-      Array(data.length),
-      (_, index) => Gallery.templates.dot.replace('{index}', index)
-    ).join('')
+    const toDotHTML = (_, index) => {
+      return Gallery.templates.dot.replace('{index}', index)
+    }
+    const dotsHTML = Array.from(Array(data.length)).map(toDotHTML).join('')
+
     this.elements.dotsContainer.innerHTML = dotsHTML
     this.elements.dots = this.elements.dotsContainer.querySelectorAll('.gallery__dot-button')
     this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
   }
 
   setImages (data) {
-    const imagesHTML = data.map(Gallery.toGalleryItemHTML.bind(this)).join('')
+    const imagesHTML = data.map(Gallery.toGalleryItemHTML).join('')
     this.elements.imagesContainer.innerHTML = imagesHTML
     this.elements.galleryItems = this.node.querySelectorAll('.gallery__image-container')
   }

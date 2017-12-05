@@ -14,7 +14,7 @@ export class Controls {
     return {
       control: (
         `<li>
-          <button class="controls__button" data-category-id="{category}">{category}</button>
+          <button class="controls__button" data-category-id="{categoryId}">{categoryId}</button>
         </li>`
       ),
       reset: (
@@ -30,15 +30,17 @@ export class Controls {
   }
 
   buildUI (data) {
-    const categories = data.reduce((acc, movie) => {
-      if (!acc.includes(movie.category)) {
-        acc.push(movie.category)
+    const categories = data.reduce((acc, {categoryId}) => {
+      if (!acc.includes(categoryId)) {
+        acc.push(categoryId)
       }
       return acc
     }, [])
 
     const categoriesHTML = categories
-    .map(category => Controls.templates.control.replace(new RegExp('{category}', 'g'), category))
+    .map(categoryId => Controls.templates.control
+      .replace(new RegExp('{categoryId}', 'g'), categoryId)
+    )
     .join('').concat(Controls.templates.reset)
 
     this.elements.buttonsContainer.innerHTML = categoriesHTML

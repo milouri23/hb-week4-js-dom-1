@@ -1,12 +1,15 @@
 .grid {
 	width: 100%;
-	background-color: green;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-auto-rows: 300px;
 	grid-gap: 10px;
+	transition: opacity .3s;
 
 	&__item {
+		opacity: 1;
+		transition: opacity .3s, transform .3s;
+
 		&--hidden {
 			display: none;
 		}

@@ -1,10 +1,10 @@
 export class Movie {
-  constructor ({title, category}) {
+  constructor ({title, categoryId}) {
     this.title = title
-    this.category = category
+    this.categoryId = categoryId
     this.html = (
-      `<div class="movie" data-category-id="${this.category}">
-        ${this.title}:${this.category}
+      `<div class="movie grid__item" data-category-id="${this.categoryId}">
+        ${this.title}
       </div>`
     )
   }

@@ -7,7 +7,8 @@ export class Grid {
 
   static get states () {
     return {
-      hidden: 'grid__item--hidden'
+      hidden: 'grid__item--hidden',
+      invisible: 'grid__item--invisible'
     }
   }
 

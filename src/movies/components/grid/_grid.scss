@@ -1,0 +1,14 @@
+.grid {
+	width: 100%;
+	background-color: green;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 300px;
+	grid-gap: 10px;
+
+	&__item {
+		&--hidden {
+			display: none;
+		}
+	}
+}

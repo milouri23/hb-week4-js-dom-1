@@ -5,9 +5,7 @@ export class Gallery {
     this.elements = {}
 
     this.setShell()
-    this.setDomReferences()
-    this.setDots(data)
-    this.setImages(data)
+    this.setUI(data)
     this.updateArrowsState()
     this.setEvents()
   }
@@ -50,20 +48,48 @@ export class Gallery {
     )
   }
 
-  setShell () {
-    this.node.innerHTML = Gallery.templates.shell
-    this.node.tabIndex = 0
+  static toGalleryDotHTML () {
+    return Gallery.templates.dot
   }
 
-  setDomReferences () {
+  setShell () {
+    this.node.tabIndex = 0
+    this.node.innerHTML = Gallery.templates.shell
     this.elements.imagesContainer = this.node.querySelector('.gallery__images-container')
     this.elements.leftBtn = this.node.querySelector('.gallery__arrow--left')
     this.elements.rightBtn = this.node.querySelector('.gallery__arrow--right')
     this.elements.dotsContainer = this.node.querySelector('.gallery__dots-container')
   }
 
+  setUI (data) {
+    this.setDots(data)
+    this.setImages(data)
+  }
+
+  updateArrowsState () {
+    const isFirst = this.index === 0
+    const isLast = this.index === this.elements.galleryItems.length - 1
+
+    this.elements.leftBtn.classList.remove(Gallery.states.arrowDisabled)
+    this.elements.rightBtn.classList.remove(Gallery.states.arrowDisabled)
+
+    if (isFirst) {
+      this.elements.leftBtn.classList.add(Gallery.states.arrowDisabled)
+    }
+    if (isLast) {
+      this.elements.rightBtn.classList.add(Gallery.states.arrowDisabled)
+    }
+  }
+
+  setEvents () {
+    this.elements.rightBtn.addEventListener('click', this.goNext.bind(this))
+    this.elements.leftBtn.addEventListener('click', this.goPrevious.bind(this))
+    this.elements.dotsContainer.addEventListener('click', this.dotHandler.bind(this))
+    this.node.addEventListener('keydown', this.keydownHandler.bind(this))
+  }
+
   setDots (data) {
-    const dotsHTML = data.map((_, index) => Gallery.templates.dot).join()
+    const dotsHTML = data.map(Gallery.toGalleryDotHTML).join('')
     this.elements.dotsContainer.innerHTML = dotsHTML
     this.elements.dots = this.elements.dotsContainer.querySelectorAll('.gallery__dot-button')
     this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
@@ -73,13 +99,6 @@ export class Gallery {
     const imagesHTML = data.map(Gallery.toGalleryItemHTML).join('')
     this.elements.imagesContainer.innerHTML = imagesHTML
     this.elements.galleryItems = this.node.querySelectorAll('.gallery__image-container')
-  }
-
-  setEvents () {
-    this.elements.rightBtn.addEventListener('click', this.goNext.bind(this))
-    this.elements.leftBtn.addEventListener('click', this.goPrevious.bind(this))
-    this.elements.dotsContainer.addEventListener('click', this.dotHandler.bind(this))
-    this.node.addEventListener('keydown', this.keydownHandler.bind(this))
   }
 
   changeGalleryIndex (index) {
@@ -95,21 +114,6 @@ export class Gallery {
       this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
       this.elements.dots[this.index].focus()
       this.updateArrowsState()
-    }
-  }
-
-  updateArrowsState () {
-    const isFirst = this.index === 0
-    const isLast = this.index === this.elements.galleryItems.length - 1
-
-    this.elements.leftBtn.classList.remove(Gallery.states.arrowDisabled)
-    this.elements.rightBtn.classList.remove(Gallery.states.arrowDisabled)
-
-    if (isFirst) {
-      this.elements.leftBtn.classList.add(Gallery.states.arrowDisabled)
-    }
-    if (isLast) {
-      this.elements.rightBtn.classList.add(Gallery.states.arrowDisabled)
     }
   }
 

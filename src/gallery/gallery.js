@@ -63,9 +63,7 @@ export class Gallery {
   }
 
   setDots (data) {
-    const dotsHTML = data.map((_, index) => {
-      return Gallery.templates.dot
-    }).join()
+    const dotsHTML = data.map((_, index) => Gallery.templates.dot).join()
     this.elements.dotsContainer.innerHTML = dotsHTML
     this.elements.dots = this.elements.dotsContainer.querySelectorAll('.gallery__dot-button')
     this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)

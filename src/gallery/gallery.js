@@ -36,13 +36,9 @@ export class Gallery {
     }
   }
 
-  static toGalleryItemHTML ({url}, index) {
-    const selectedClass = index === 0
-      ? Gallery.states.imageSelected
-      : ''
-
+  static toGalleryItemHTML ({url}) {
     return (
-      `<li class="gallery__image-container ${selectedClass}">
+      `<li class="gallery__image-container">
         <img class="gallery__image" src="${url}"/>
       </li>`
     )
@@ -99,20 +95,23 @@ export class Gallery {
     const imagesHTML = data.map(Gallery.toGalleryItemHTML).join('')
     this.elements.imagesContainer.innerHTML = imagesHTML
     this.elements.galleryItems = this.node.querySelectorAll('.gallery__image-container')
+    this.elements.galleryItems[this.index].classList.add(Gallery.states.imageSelected)
   }
 
   changeGalleryIndex (index) {
+    const {dots, galleryItems} = this.elements
+
     const isPositive = index >= 0
     const isLessThanLength = index < this.elements.galleryItems.length
     const isDifferentThanCurrent = index !== this.index
 
     if (isPositive && isLessThanLength && isDifferentThanCurrent) {
-      this.elements.galleryItems[this.index].classList.remove(Gallery.states.imageSelected)
-      this.elements.dots[this.index].classList.remove(Gallery.states.dotSelected)
+      galleryItems[this.index].classList.remove(Gallery.states.imageSelected)
+      dots[this.index].classList.remove(Gallery.states.dotSelected)
       this.index = index
-      this.elements.galleryItems[this.index].classList.add(Gallery.states.imageSelected)
-      this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
-      this.elements.dots[this.index].focus()
+      galleryItems[this.index].classList.add(Gallery.states.imageSelected)
+      dots[this.index].classList.add(Gallery.states.dotSelected)
+      dots[this.index].focus()
       this.updateArrowsState()
     }
   }

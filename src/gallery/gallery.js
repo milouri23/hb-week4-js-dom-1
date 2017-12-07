@@ -32,7 +32,7 @@ export class Gallery {
       ),
       dot: (
         `<li class="gallery__dot">
-          <button class="gallery__dot-button" data-index="{index}"></button>
+          <button class="gallery__dot-button"></button>
         </li>`
       )
     }
@@ -63,11 +63,9 @@ export class Gallery {
   }
 
   setDots (data) {
-    const toDotHTML = (_, index) => {
-      return Gallery.templates.dot.replace('{index}', index)
-    }
-    const dotsHTML = Array.from(Array(data.length)).map(toDotHTML).join('')
-
+    const dotsHTML = data.map((_, index) => {
+      return Gallery.templates.dot
+    }).join()
     this.elements.dotsContainer.innerHTML = dotsHTML
     this.elements.dots = this.elements.dotsContainer.querySelectorAll('.gallery__dot-button')
     this.elements.dots[this.index].classList.add(Gallery.states.dotSelected)
@@ -128,7 +126,8 @@ export class Gallery {
   dotHandler (event) {
     const clickedElement = event.target
     if (clickedElement.classList.contains('gallery__dot-button')) {
-      this.changeGalleryIndex(Number(clickedElement.dataset.index))
+      const index = Array.from(this.elements.dots).indexOf(clickedElement)
+      this.changeGalleryIndex(index)
     }
   }
 
@@ -143,3 +142,5 @@ export class Gallery {
     }
   }
 }
+
+export default Gallery

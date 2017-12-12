@@ -4,7 +4,7 @@
   "description": "This exercise will help you to understand how you can interact with the DOM API using Javascript to acomplish different common tasks in a user interface.",
   "private": true,
   "scripts": {
-    "install:selenium": "selenium-standalone install",
+    "install:selenium": "selenium-standalone install --singleDriverInstall=chrome",
     "postinstall": "npm-run-all install:**",
     "test": "npm-run-all test:**",
     "test:e2e": "wdio ./wdio.conf.js",

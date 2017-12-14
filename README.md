@@ -13,7 +13,7 @@ This exercise will help you to understand how you can interact with the DOM API 
   - The menu should be dynamically populated with categories of cards
   - Clicking in a menu item should filter items in the grid
   - A collection of cards should be dynamically populated inside a grid
-  - Each card should be able to flip in order to see more content
+  - Each card should be able to flip when clicking on it in order to see more content
   
 Both exercises should support at least a small, medium and large viewports.
 - Small: 0 - 639px
